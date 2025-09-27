@@ -1,0 +1,58 @@
+try:
+	from PySide6 import QtCore, QtGui, Qtwudgets
+	from shiboken6 import wrapInstance
+except:
+	from Pyside2 import QtCore, QtGui, Qtwudgets
+	from shiboken2 import wrapInstance
+
+import maya.OpenMayaUi as omui 
+import os 
+
+ICON_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), 'icons'))
+
+class ObjectCreatDialog(QtWidgets.QDialog):
+	def __init__(self, parent=None):
+		super().__init__(parent)
+
+		self.resize(300, 300)
+		self.setWindowTitle('Object Creator')
+
+		self.main_layout = QtWidgets.QVBoxLayout()
+		self.setLayout(self.main_layout)
+
+		self.object_lisWidget = QtWidgets.QListWidget()
+		self.main_layout.addWidget(self.object_listWidget)
+
+		self.name_layout = QtWidgets.QHBoxLayout()
+		self.main_layout.addLayout(self.name_layout)
+		self.name_label = QtWidgets.QLabel('Name:')
+		self.name_lineEdit = QtWidgets.QLineEdit()
+		self.name_layout.addWidget(self.name_label)
+		self.name_layout.addWidget(self.name_lineEdit)
+
+		self.button_layout = QtWidgets.QHBoxLayout()
+		self.main_layout.addLayout(self.button_layout)
+		self.create_button = QtWidgets.QPushButton('Crate')
+		self.cancel_button = QtWidgets.QPushButton('Cancel')
+		self.button_layout.addStretch()
+		self.button_layout.addWidget(self.create_button)
+		self.button_layout.addWidget(self.cancel_button)
+
+		self.initIconWidget
+	def initIconWidget(self):
+		obj = ['cube', 'cone', 'sphere', 'torus']
+		for obj in objs:
+			item = QtWidgets.QListWidgetIitem(obj)
+			item.setIcon(QtGui.QIcon(os.path.join(ICON_PATH, f'(obj).png')))
+			self.object_listWidget.addItem(item)
+			
+def run():
+	global ui  
+	try:
+		ui.close()
+	except:
+		pass
+
+	ptr = wrapInstance(int(omui.MQtUtil.mainwindow()), QtWidgets.QWidget)
+	ui = ObjectCreatDialog(parent=ptr)
+	ui.show()
