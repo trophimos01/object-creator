@@ -1,8 +1,8 @@
 try:
-	from PySide6 import QtCore, QtGui, Qtwudgets
+	from PySide6 import QtCore, QtGui, Qtwidgets
 	from shiboken6 import wrapInstance
 except:
-	from Pyside2 import QtCore, QtGui, Qtwudgets
+	from Pyside2 import QtCore, QtGui, Qtwidgets
 	from shiboken2 import wrapInstance
 
 import maya.OpenMayaUi as omui 
@@ -38,14 +38,14 @@ class ObjectCreatDialog(QtWidgets.QDialog):
 
 		self.button_layout = QtWidgets.QHBoxLayout()
 		self.main_layout.addLayout(self.button_layout)
-		self.create_button = QtWidgets.QPushButton('Crate')
+		self.create_button = QtWidgets.QPushButton('Create')
 		self.cancel_button = QtWidgets.QPushButton('Cancel')
 		self.button_layout.addStretch()
 		self.button_layout.addWidget(self.create_button)
 		self.button_layout.addWidget(self.cancel_button)
 
-		self.initIconWidget
-		
+		self.initIconWidget()
+
 	def initIconWidget(self):
 		obj = ['cube', 'cone', 'sphere', 'torus']
 		for obj in objs:
@@ -60,6 +60,6 @@ def run():
 	except:
 		pass
 
-	ptr = wrapInstance(int(omui.MQtUtil.mainwindow()), QtWidgets.QWidget)
+	ptr = wrapInstance(int(omui.MQtUtil.mainWindow()), QtWidgets.QWidget)
 	ui = ObjectCreatDialog(parent=ptr)
 	ui.show()
