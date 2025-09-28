@@ -14,13 +14,19 @@ class ObjectCreatDialog(QtWidgets.QDialog):
 	def __init__(self, parent=None):
 		super().__init__(parent)
 
-		self.resize(300, 300)
+		self.resize(300, 350)
 		self.setWindowTitle('Object Creator')
 
 		self.main_layout = QtWidgets.QVBoxLayout()
 		self.setLayout(self.main_layout)
 
-		self.object_lisWidget = QtWidgets.QListWidget()
+		self.object_listWidget = QtWidgets.QListWidget()
+		self.object_listWidget.setIconSize(QtCore.QSize(50,50))
+		self.object_listWidget.setSpacing(5)
+		self.object_listWidget.setViewMode(QtWidgets.QListView.IconMode)
+		self.object_listWidget.setMovement(QtWidgets.QListView.Static)
+		self.object_listWidget.setResizeMode(QtWidgets.QListView.Adjust)
+
 		self.main_layout.addWidget(self.object_listWidget)
 
 		self.name_layout = QtWidgets.QHBoxLayout()
@@ -39,6 +45,7 @@ class ObjectCreatDialog(QtWidgets.QDialog):
 		self.button_layout.addWidget(self.cancel_button)
 
 		self.initIconWidget
+		
 	def initIconWidget(self):
 		obj = ['cube', 'cone', 'sphere', 'torus']
 		for obj in objs:
