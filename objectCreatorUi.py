@@ -1,8 +1,8 @@
 try:
-	from PySide6 import QtCore, QtGui, Qtwidgets
+	from PySide6 import QtCore, QtGui, QtWidgets
 	from shiboken6 import wrapInstance
 except:
-	from Pyside2 import QtCore, QtGui, Qtwidgets
+	from PySide2 import QtCore, QtGui, QtWidgets
 	from shiboken2 import wrapInstance
 
 import maya.OpenMayaUi as omui 
@@ -10,7 +10,7 @@ import os
 
 ICON_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), 'icons'))
 
-class ObjectCreatDialog(QtWidgets.QDialog):
+class ObjectCreateDialog(QtWidgets.QDialog):
 	def __init__(self, parent=None):
 		super().__init__(parent)
 
@@ -47,10 +47,10 @@ class ObjectCreatDialog(QtWidgets.QDialog):
 		self.initIconWidget()
 
 	def initIconWidget(self):
-		obj = ['cube', 'cone', 'sphere', 'torus']
+		objs = ['cube', 'cone', 'sphere', 'torus']
 		for obj in objs:
-			item = QtWidgets.QListWidgetIitem(obj)
-			item.setIcon(QtGui.QIcon(os.path.join(ICON_PATH, f'(obj).png')))
+			item = QtWidgets.QListWidgetItem(obj)
+			item.setIcon(QtGui.QIcon(os.path.join(ICON_PATH, f'{obj}.png')))
 			self.object_listWidget.addItem(item)
 			
 def run():
@@ -61,5 +61,5 @@ def run():
 		pass
 
 	ptr = wrapInstance(int(omui.MQtUtil.mainWindow()), QtWidgets.QWidget)
-	ui = ObjectCreatDialog(parent=ptr)
+	ui = ObjectCreateDialog(parent=ptr)
 	ui.show()
